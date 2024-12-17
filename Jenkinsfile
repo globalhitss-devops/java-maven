@@ -9,11 +9,11 @@ pipeline {
     }
 
     stages {
-        stage('Clone sources') {
+      stage('Clone sources') {
             steps {
                 git branch: 'main', credentialsId: 'my-credential', url: 'https://github.com/global-develop-qa/java-maven.git'
             }
-        }
+      }
 
       stage('Build Artifact') {
             steps {
@@ -32,6 +32,24 @@ pipeline {
               }
             }
         }
-          
+        
+        stage("SonarQube Analysis"){
+            environment {
+                SCANNER_HOME = tool 'SonarQubeScanner';    
+            }
+
+            steps{
+               withSonarQubeEnv("SonarQube"){
+                   sh '''mvn sonar:sonar $SCANNER_HOME/bin/sonar-scanner \
+                   -Dsonar.projectName=java-maven \
+                   -Dsonar.projectKey=java-maven \
+                   -Dsonar.sources=. \
+                   -Dsonar.scm.disabled=true \
+                   -Dsonar.issuesReport.html.enable=true \
+                   -Dsonar.report.export.path=report.json'''
+               }
+            }
+        }
+        
     }
 }
