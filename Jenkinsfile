@@ -40,7 +40,7 @@ pipeline {
 
             steps{
                withSonarQubeEnv("SonarQube"){
-                   sh '''mvn sonar:sonar $SCANNER_HOME/bin/sonar-scanner \
+                   sh '''mvn sonar:sonar \
                    -Dsonar.projectName=java-maven \
                    -Dsonar.projectKey=java-maven \
                    -Dsonar.sources=. \
