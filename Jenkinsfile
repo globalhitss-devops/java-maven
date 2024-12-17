@@ -42,7 +42,10 @@ pipeline {
                withSonarQubeEnv("SonarQube"){
                    sh '''mvn sonar:sonar \
                    -Dsonar.projectName=java-maven \
-                   -Dsonar.projectKey=java-maven'''
+                   -Dsonar.projectKey=java-maven \
+                   -Dsonar.scm.disabled=true \
+                   -Dsonar.issuesReport.html.enable=true \
+                   -Dsonar.report.export.path=report.json'''
                }
             }
         }
