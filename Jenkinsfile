@@ -11,7 +11,7 @@ pipeline {
     stages {
       stage('Clone sources') {
             steps {
-                git branch: 'main', credentialsId: 'my-credential', url: 'https://github.com/global-develop-qa/java-maven.git'
+                git branch: 'main', credentialsId: 'my-credential', url: 'https://github.com/globalhitss-devops/java-maven.git'
             }
       }
 
